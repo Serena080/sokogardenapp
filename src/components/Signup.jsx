@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
@@ -13,12 +14,83 @@ const Signup = () => {
 
   const [phone,setPhone]=useState("");
 
+  // The three states to which the application will move to
+
+  const [loading,setLoading] = useState("");
+  const [success,setSuccess] = useState("");
+  const [error,setError] = useState("");
+
+
+  // Below is a function that will handle the submit action
+
+  const handleSubmit = async(e) =>{
+
+    // Below will prevent the site from reloading
+
+    e.preventDefault()
+
+    // Update the loading hook with a message that will be displayed to the user trying to register
+    setLoading("Please wait to be registered, in a moment...")
+
+    try{
+      // create a form-data object that will enable you to capture the form details on the form
+
+      const formdata = new FormData();
+
+      // Insert the four details using key value pairs
+
+      formdata.append("username",username);
+      formdata.append("email",email);
+      formdata.append("password",password);
+      formdata.append("phone",phone);
+
+      // By us e of axios we can access the method post
+      const response = await axios.post("https://serena080.alwaysdata.net/api/signup",formdata)
+
+      // Set back the loading back to default
+
+      setLoading("");
+
+      // Just incase everything goes well,update the success hook with a message
+
+      setSuccess(response.data.message)
+
+      // Clear your hooks to default
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setPhone("");
+
+
+    }
+    catch(error){
+
+      // set the loading bak to default
+      setLoading("");
+
+      // Update the error hook with the messsage given back from the response
+
+      setError(error.message)
+
+    }
+
+
+  }
+
   return (
     <div className='row justify-content-center mt-4'>
       <div className="card col-md-6 shadow p-4">
         <h1 className='text-dark'>Sign up</h1>
 
-        <form>
+        <h5 className='text-warning'>{loading}</h5>
+
+        <h3 className='text-success'>{success}</h3>
+
+        <h4 className='text-danger'>{error}</h4>
+
+        <form onSubmit={handleSubmit}>
+
+
           <input type="text" 
           placeholder='Enter the username'
           className='form-control'
@@ -44,7 +116,7 @@ const Signup = () => {
           value={password}
           onChange={(e)=>setPassword(e.target.value)}
           required/> <br />
-          {password}
+          {/* {password} */}
 
           
 
@@ -55,11 +127,11 @@ const Signup = () => {
           onChange={(e)=>setPhone(e.target.value)}
           required/> <br /> <br />
 
-          {phone}
+          {/* {phone} */}
 
-          <input type="button" value="Signup" className='btn btn-success'/> <br /> <br />
+          <input type="submit" value="Signup" className='btn btn-success'/> <br /> <br />
 
-          Already have an account?<Link ></Link>
+          Already have an account?<Link to= {'/signin'}> Signin</Link>
         </form>
       </div>
     </div>
