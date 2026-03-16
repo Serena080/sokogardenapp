@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signin = () => {
 
@@ -47,9 +47,11 @@ const Signin = () => {
 
       // 11. Interact with axios module that will help you connect to the https protocal as you pass in your URL and the data.
 
-      const response = await axios.post("https://kbenkamotho.alwaysdata.net/api/signin",formdata)
+      const response = await axios.post("https://serena080.alwaysdata.net/api/signin",formdata)
 
       // 12.set the loading hook back to default
+
+      
 
       setLoading("");
 
@@ -60,6 +62,10 @@ const Signin = () => {
 
         // if the user is there , definetly the details entered during the sign in are correct
         // setSuccess("Log in successfull")
+
+
+        // Store user details in local storage
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         // If it is successful leta person be directed to another page
 
         navigate("/")
@@ -122,7 +128,14 @@ const Signin = () => {
 
           <input type="submit" 
           value="Signin"
-          className='btn btn-success'/>
+          className='btn btn-success'/> <br /> <br />
+
+
+
+          You don't have an account?<Link to= {'/signup'}> Register</Link>
+
+
+
 
 
 
