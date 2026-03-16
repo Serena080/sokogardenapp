@@ -2,11 +2,16 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
+
+// 
 const Signup = () => {
 
-  // Initialize the hooks
+  // Initialize the hooks ; State Variables (Hooks)-Each state stores input values.
 
   const [username,setUsername]=useState("");
+   // username	    -current value
+   // setUsername	-updates the value
+   // ""	          -starts empty
 
   const [email,setEmail]=useState("");
 
@@ -20,17 +25,25 @@ const Signup = () => {
   const [success,setSuccess] = useState("");
   const [error,setError] = useState("");
 
+ 
 
-  // Below is a function that will handle the submit action
+
+  // Below is a function that will handle the submit action- This function runs when the form is submitted.
 
   const handleSubmit = async(e) =>{
 
-    // Below will prevent the site from reloading
+    // Below will prevent the site from reloading - Without this, browser reloads page.
+
+   // React forms usually prevent default browser behavior.
 
     e.preventDefault()
 
-    // Update the loading hook with a message that will be displayed to the user trying to register
+    // Update the loading hook with a message that will be displayed to the user trying to register.Before request starts:
+
+   // User sees loading message.
     setLoading("Please wait to be registered, in a moment...")
+
+    //  try{}- This contains code that may succeed.
 
     try{
       // create a form-data object that will enable you to capture the form details on the form
@@ -55,14 +68,22 @@ const Signup = () => {
 
       setSuccess(response.data.message)
 
+      console.log("The content of the response is:",response.data.message)
+
       // Clear your hooks to default
       setUsername("");
       setEmail("");
       setPassword("");
       setPhone("");
 
+     setTimeout(() => {
+     setSuccess("");
+  }, 5000);
+
 
     }
+
+    // catch{}- Runs if request fails.
     catch(error){
 
       // set the loading bak to default
@@ -76,6 +97,21 @@ const Signup = () => {
 
 
   }
+
+  // React → API → Server → Response
+  // axios.post()
+
+  // Sends POST request.
+
+  // await
+
+  // Waits until server responds.
+
+  // response
+
+  // Stores server reply.
+
+  // Flow
 
   return (
     <div className='row justify-content-center mt-4'>
