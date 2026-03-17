@@ -39,7 +39,7 @@ const Addproducts = () => {
 
       // Interact with axios module that will help you connect to the https protocal as you pass in your URL and the data.
 
-      const response = await axios("https://serena080.alwaysdata.net/api/add_product",formdata)
+      const response = await axios.post("https://serena080.alwaysdata.net/api/add_product",formdata)
 
       // set loeding hook bak to default
       setLoading(false)
@@ -53,6 +53,13 @@ const Addproducts = () => {
       setProductDescription("");
       setProductCost("");
       setProductPhoto("");
+
+      // Clearing the file input option
+      e.target.reset()
+
+      setTimeout(() => {
+          setSuccess("");
+           }, 5000);
 
     }
 
