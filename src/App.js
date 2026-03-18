@@ -9,6 +9,7 @@ import Signup from './components/Signup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Notfound from './components/Notfound';
 import Signin from './components/Signin';
+import Makepayment from './components/Makepayment';
 
 
 
@@ -32,6 +33,12 @@ function App() {
         
       </header>
        {/* Below is our different routes together with the rendered components */}
+       <nav>
+        <Link to="/" className='btn btn-outline-dark btn-sm m-1'>Home</Link>
+        <Link to="/addproducts" className='btn btn-outline-dark btn-sm m-1'>Add product</Link>
+        <Link to="/signin" className='btn btn-outline-dark btn-sm m-1'>Sign in</Link>
+        <Link to="/signup" className='btn btn-outline-dark btn-sm m-1'>Sign Up</Link>
+       </nav>
 
        <Routes>
           
@@ -41,6 +48,8 @@ function App() {
           <Route path='/'element={<Getproducts/>}/>
 
           <Route path='/addproducts' element={<Addproducts/>}/>
+
+          <Route path='/makepayment' element={<Makepayment/>}/>
 
           <Route path='*'element={<Notfound/>}/>
 
